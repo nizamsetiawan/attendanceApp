@@ -22,7 +22,7 @@ class AttendanceSuccessPage extends StatelessWidget {
           children: [
             Assets.images.success.image(),
             const Text(
-              'Asiap !',
+              'Selamat',
               style: TextStyle(
                 fontSize: 24.0,
                 fontWeight: FontWeight.w700,
@@ -41,15 +41,27 @@ class AttendanceSuccessPage extends StatelessWidget {
               ),
             ),
             const SpaceHeight(80.0),
-            Button.filled(
-              onPressed: () {
-                context
-                    .read<IsCheckedinBloc>()
-                    .add(const IsCheckedinEvent.isCheckedIn());
-                context.popToRoot();
-              },
-              label: 'Oke, dimengerti',
-            ),
+            // Button.filled(
+            //   onPressed: () {
+            //     context
+            //         .read<IsCheckedinBloc>()
+            //         .add(const IsCheckedinEvent.isCheckedIn());
+            //     context.popToRoot();
+            //   },
+            //   label: 'Oke, dimengerti',
+            // ),
+            SizedBox(
+              width: double.infinity,
+              child: SMButtonFill.primaryMedium(
+                text: 'Oke, dimengerti',
+                onPressed: () {
+                  context
+                      .read<IsCheckedinBloc>()
+                      .add(const IsCheckedinEvent.isCheckedIn());
+                  context.popToRoot();
+                },
+              ),
+            )
           ],
         ),
       ),

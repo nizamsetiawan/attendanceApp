@@ -19,7 +19,6 @@ class _MainPageState extends State<MainPage> {
     // const HomePage(),
     const HomePage(),
     const HistoryPage(),
-
     const ProfilePage(),
   ];
   @override

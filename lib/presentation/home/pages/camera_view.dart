@@ -96,7 +96,7 @@ class _CameraViewState extends State<CameraView> {
           Center(
             child: _changingCameraLens
                 ? Center(
-                    child: const Text('Changing camera lens'),
+                    child: SMToastBar.info(message: 'Mengganti Lensa Kamera...'),
                   )
                 : CameraPreview(
                     _controller!,

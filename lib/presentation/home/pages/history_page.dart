@@ -31,7 +31,7 @@ class _HistoryPageState extends State<HistoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('History'),
+        title: const Text('Riwayat Absensi'),
       ),
       body: ListView(
         padding: const EdgeInsets.all(18.0),
@@ -63,7 +63,7 @@ class _HistoryPageState extends State<HistoryPage> {
                 },
                 error: (message) {
                   return Center(
-                    child: Text(message),
+                    child: SMErrorWidget(message: message),
                   );
                 },
                 loading: () => const Center(
@@ -71,10 +71,10 @@ class _HistoryPageState extends State<HistoryPage> {
                 ),
                 empty: () {
                   return const Center(
-                      child: Text('No attendance data available.'));
+                      child: SMDataNotFound(message: 'No Data Found'));
                 },
                 loaded: (attendance) {
-                  // Ambil data pertama dari list (atau ubah logika sesuai kebutuhan Anda)
+                  // Ambil data pertama dari list (atau ubah logika sesuai kebutuhan)
                   // final attendance = attendanceList.first;
 
                   // Pisahkan latlongIn menjadi latitude dan longitude

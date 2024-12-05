@@ -45,9 +45,7 @@ class _PermissionPageState extends State<PermissionPage> {
   }
 
   String formatDate(DateTime date) {
-    // Gunakan DateFormat untuk mengatur format tanggal
     final dateFormatter = DateFormat('yyyy-MM-dd');
-    // Kembalikan tanggal dalam format yang dinginkan
     return dateFormatter.format(date);
   }
 
@@ -55,7 +53,7 @@ class _PermissionPageState extends State<PermissionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Izin'),
+        title: const Text('Form Permohonan Izin'),
       ),
       body: ListView(
         padding: const EdgeInsets.all(18.0),
@@ -66,9 +64,10 @@ class _PermissionPageState extends State<PermissionPage> {
                 dateController.text = formatDate(selectedDate).toString(),
           ),
           const SpaceHeight(16.0),
-          CustomTextField(
+          SMInputField(
             controller: reasonController,
             label: 'Keperluan',
+            textHint: 'Isi keperluan izin',
             maxLines: 5,
           ),
           const SpaceHeight(26.0),
@@ -114,12 +113,10 @@ class _PermissionPageState extends State<PermissionPage> {
               state.maybeWhen(
                 orElse: () {},
                 error: (message) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(message),
-                      backgroundColor: AppColors.red,
-                    ),
-                  );
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: SMToastBar.error(message: message),
+                    backgroundColor: SMColors.white,
+                  ));
                 },
                 success: () {
                   dateController.clear();
@@ -127,12 +124,11 @@ class _PermissionPageState extends State<PermissionPage> {
                   setState(() {
                     imagePath = null;
                   });
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Submit Izin success'),
-                      backgroundColor: AppColors.primary,
-                    ),
-                  );
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content:
+                        SMToastBar.success(message: "Permintaan Izin Berhasil"),
+                    backgroundColor: SMColors.white,
+                  ));
                   context.pushReplacement(const MainPage());
                 },
               );
@@ -140,7 +136,8 @@ class _PermissionPageState extends State<PermissionPage> {
             builder: (context, state) {
               return state.maybeWhen(
                 orElse: () {
-                  return Button.filled(
+                  return SMButtonFill.primaryMedium(
+                    text: 'Kirim Permintaan',
                     onPressed: () {
                       final image =
                           imagePath != null ? XFile(imagePath!) : null;
@@ -151,7 +148,6 @@ class _PermissionPageState extends State<PermissionPage> {
                                 image: image!),
                           );
                     },
-                    label: 'Kirm Permintaan',
                   );
                 },
                 loading: () => const Center(

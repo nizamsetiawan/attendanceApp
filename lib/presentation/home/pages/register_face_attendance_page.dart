@@ -238,7 +238,7 @@ class _RegisterFaceAttendencePageState
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text("Face Registration", textAlign: TextAlign.center),
+        title: const Text("Wajah Karyawan Terdaftar", textAlign: TextAlign.center),
         alignment: Alignment.center,
         content: SizedBox(
           height: MediaQuery.of(context).size.height / 2,
@@ -273,6 +273,10 @@ class _RegisterFaceAttendencePageState
                         //     .reSaveAuthData(responseModel.user!);
                         // Navigator.pop(context);
                         AuthLocalDatasource().updateAuthData(data);
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: SMToastBar.success(message: "Daftar Wajah Berhasil" ),
+                          backgroundColor: SMColors.white,
+                        ));
                         context.pushReplacement(const MainPage());
                       },
                     );
@@ -291,7 +295,7 @@ class _RegisterFaceAttendencePageState
                                           recognition.embedding.join(','),
                                           null));
                             },
-                            label: 'Register');
+                            label: 'Daftar');
                       },
                       loading: () => const Center(
                         child: CircularProgressIndicator(),

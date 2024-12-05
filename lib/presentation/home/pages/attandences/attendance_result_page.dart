@@ -147,15 +147,28 @@ class _RecognitionResultPageState extends State<AttendanceResultPage> {
                         orElse: () {
                           return Padding(
                             padding: const EdgeInsets.all(16),
-                            child: Button.filled(
-                              onPressed: () {
-                                context.read<CheckinAttendanceBloc>().add(
-                                      CheckinAttendanceEvent.checkin(
-                                          latitude.toString(),
-                                          longitude.toString()),
-                                    );
-                              },
-                              label: 'Lanjutkan Checkin',
+                            // child: Button.filled(
+                            //   onPressed: () {
+                            //     context.read<CheckinAttendanceBloc>().add(
+                            //           CheckinAttendanceEvent.checkin(
+                            //               latitude.toString(),
+                            //               longitude.toString()),
+                            //         );
+                            //   },
+                            //   label: 'Lanjutkan Checkin',
+                            // ),
+                            child: SizedBox(
+                              width: double.infinity,
+                              child: SMButtonFill.primaryMedium(
+                                text: "Lanjutkan Checkin",
+                                onPressed: () {
+                                  context.read<CheckinAttendanceBloc>().add(
+                                        CheckinAttendanceEvent.checkin(
+                                            latitude.toString(),
+                                            longitude.toString()),
+                                      );
+                                },
+                              ),
                             ),
                           );
                         },
@@ -191,15 +204,28 @@ class _RecognitionResultPageState extends State<AttendanceResultPage> {
                             orElse: () {
                               return Padding(
                                 padding: const EdgeInsets.all(16),
-                                child: Button.filled(
-                                  onPressed: () {
-                                    context.read<CheckoutAttendanceBloc>().add(
-                                          CheckoutAttendanceEvent.checkout(
-                                              latitude.toString(),
-                                              longitude.toString()),
-                                        );
-                                  },
-                                  label: 'Lanjutkan Checkout',
+                                // child: Button.filled(
+                                //   onPressed: () {
+                                //     context.read<CheckoutAttendanceBloc>().add(
+                                //           CheckoutAttendanceEvent.checkout(
+                                //               latitude.toString(),
+                                //               longitude.toString()),
+                                //         );
+                                //   },
+                                //   label: 'Lanjutkan Checkout',
+                                // ),
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  child: SMButtonFill.primaryMedium(
+                                    text: "Lanjutkan Checkout",
+                                    onPressed: () {
+                                      context.read<CheckoutAttendanceBloc>().add(
+                                            CheckoutAttendanceEvent.checkout(
+                                                latitude.toString(),
+                                                longitude.toString()),
+                                          );
+                                    },
+                                  ),
                                 ),
                               );
                             },
@@ -212,17 +238,34 @@ class _RecognitionResultPageState extends State<AttendanceResultPage> {
                     : const SizedBox(),
             //coba lagi
             widget.attendanceType == 'Face'
-                ? ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => FaceDetectorCheckinPage(
-                                    isCheckedIn: widget.isCheckin,
-                                  )));
-                    },
-                    child: Text('Ambil Wajah Lagi'),
-                  )
+                // ? ElevatedButton(
+                //     onPressed: () {
+                //       Navigator.push(
+                //           context,
+                //           MaterialPageRoute(
+                //               builder: (context) => FaceDetectorCheckinPage(
+                //                     isCheckedIn: widget.isCheckin,
+                //                   )));
+                //     },
+                //     child: Text('Ambil Wajah Lagi'),
+                //   )
+            ? Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: SizedBox(
+                width: double.infinity,
+                child: SMButtonOutline.primaryMedium(
+                  text: "Ambil Wajah Lagi",
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => FaceDetectorCheckinPage(
+                                  isCheckedIn: widget.isCheckin,
+                                )));
+                  },
+                ),
+              ),
+            )
                 : const SizedBox(),
             widget.attendanceType == 'QR'
                 ? ElevatedButton(

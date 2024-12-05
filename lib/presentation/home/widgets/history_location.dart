@@ -19,7 +19,7 @@ class HistoryLocation extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        color: isAttendance ? AppColors.primary : AppColors.red,
+        color: isAttendance ? AppColors.primary : SMColors.secondary,
         borderRadius: BorderRadius.circular(16.0),
       ),
       child: Column(

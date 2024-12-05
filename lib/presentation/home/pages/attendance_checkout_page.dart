@@ -418,11 +418,10 @@ class _AttendanceCheckoutPageState extends State<AttendanceCheckoutPage> {
                             state.maybeWhen(
                               orElse: () {},
                               error: (message) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(message),
-                                  ),
-                                );
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                  content: SMToastBar.error(message: message ),
+                                  backgroundColor: SMColors.white,
+                                ));
                               },
                               loaded: (responseModel) {
                                 context.pushReplacement(

@@ -15,6 +15,13 @@ import 'package:vector_graphics/vector_graphics.dart' as _vg;
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/add_icon.svg
+  SvgGenImage get addIcon => const SvgGenImage('assets/icons/add_icon.svg');
+
+  /// File path: assets/icons/add_light_icon.svg
+  SvgGenImage get addLightIcon =>
+      const SvgGenImage('assets/icons/add_light_icon.svg');
+
   /// File path: assets/icons/attendance.svg
   SvgGenImage get attendance =>
       const SvgGenImage('assets/icons/attendance.svg');
@@ -25,8 +32,32 @@ class $AssetsIconsGen {
   /// File path: assets/icons/calendar.svg
   SvgGenImage get calendar => const SvgGenImage('assets/icons/calendar.svg');
 
+  /// File path: assets/icons/call_icon.svg
+  SvgGenImage get callIcon => const SvgGenImage('assets/icons/call_icon.svg');
+
+  /// File path: assets/icons/cancel_icon.svg
+  SvgGenImage get cancelIcon =>
+      const SvgGenImage('assets/icons/cancel_icon.svg');
+
   /// File path: assets/icons/email.svg
   SvgGenImage get email => const SvgGenImage('assets/icons/email.svg');
+
+  /// File path: assets/icons/error.svg
+  SvgGenImage get error => const SvgGenImage('assets/icons/error.svg');
+
+  /// File path: assets/icons/error2.svg
+  SvgGenImage get error2 => const SvgGenImage('assets/icons/error2.svg');
+
+  /// File path: assets/icons/error_icon.svg
+  SvgGenImage get errorIcon => const SvgGenImage('assets/icons/error_icon.svg');
+
+  /// File path: assets/icons/eye_off_icon.svg
+  SvgGenImage get eyeOffIcon =>
+      const SvgGenImage('assets/icons/eye_off_icon.svg');
+
+  /// File path: assets/icons/eye_on_icon.svg
+  SvgGenImage get eyeOnIcon =>
+      const SvgGenImage('assets/icons/eye_on_icon.svg');
 
   /// File path: assets/icons/image.svg
   SvgGenImage get image => const SvgGenImage('assets/icons/image.svg');
@@ -52,10 +83,19 @@ class $AssetsIconsGen {
 
   /// List of all assets
   List<SvgGenImage> get values => [
+        addIcon,
+        addLightIcon,
         attendance,
         back,
         calendar,
+        callIcon,
+        cancelIcon,
         email,
+        error,
+        error2,
+        errorIcon,
+        eyeOffIcon,
+        eyeOnIcon,
         image,
         location,
         notificationRounded,
@@ -108,6 +148,35 @@ class $AssetsImagesGen {
       ];
 }
 
+class $AssetsLottieGen {
+  const $AssetsLottieGen();
+
+  /// File path: assets/lottie/arrow_up.json
+  String get arrowUp => 'assets/lottie/arrow_up.json';
+
+  /// File path: assets/lottie/arrow_up_2.json
+  String get arrowUp2 => 'assets/lottie/arrow_up_2.json';
+
+  /// File path: assets/lottie/empty.json
+  String get empty => 'assets/lottie/empty.json';
+
+  /// File path: assets/lottie/error_lottie.json
+  String get errorLottie => 'assets/lottie/error_lottie.json';
+
+  /// File path: assets/lottie/loading.json
+  String get loading => 'assets/lottie/loading.json';
+
+  /// File path: assets/lottie/success.json
+  String get success => 'assets/lottie/success.json';
+
+  /// File path: assets/lottie/update_lottie.json
+  String get updateLottie => 'assets/lottie/update_lottie.json';
+
+  /// List of all assets
+  List<String> get values =>
+      [arrowUp, arrowUp2, empty, errorLottie, loading, success, updateLottie];
+}
+
 class $AssetsIconsMenuGen {
   const $AssetsIconsMenuGen();
 
@@ -158,6 +227,7 @@ class Assets {
 
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsLottieGen lottie = $AssetsLottieGen();
   static const String mobileFaceNet = 'assets/mobile_face_net.tflite';
 
   /// List of all assets
@@ -194,7 +264,7 @@ class AssetGenImage {
     ImageRepeat repeat = ImageRepeat.noRepeat,
     Rect? centerSlice,
     bool matchTextDirection = false,
-    bool gaplessPlayback = false,
+    bool gaplessPlayback = true,
     bool isAntiAlias = false,
     String? package,
     FilterQuality filterQuality = FilterQuality.low,

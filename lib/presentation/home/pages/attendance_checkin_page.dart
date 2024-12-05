@@ -417,11 +417,10 @@ class _AttendanceCheckinPageState extends State<AttendanceCheckinPage> {
                             state.maybeWhen(
                               orElse: () {},
                               error: (message) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(message),
-                                  ),
-                                );
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                  content: SMToastBar.error(message: message),
+                                  backgroundColor: SMColors.white,
+                                ));
                               },
                               loaded: (responseModel) {
                                 context.pushReplacement(

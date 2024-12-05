@@ -40,70 +40,81 @@ class _LoginPageState extends State<LoginPage> {
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SpaceHeight(50),
+              const SpaceHeight(100),
               Image.asset(
                 Assets.images.logo.path,
-                width: MediaQuery.of(context).size.width,
-                height: 100,
-              ),
-              const SpaceHeight(107),
-              CustomTextField(
-                controller: emailController,
-                label: 'Email Address',
-                showLabel: false,
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SvgPicture.asset(
-                    Assets.icons.email.path,
-                    height: 20,
-                    width: 20,
-                  ),
-                ),
+                width: 150,
               ),
               const SpaceHeight(20),
-              CustomTextField(
-                controller: passwordController,
-                label: 'Password',
-                showLabel: false,
-                obscureText: !isShowPassword,
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SvgPicture.asset(
-                    Assets.icons.password.path,
-                    height: 20,
-                    width: 20,
-                  ),
-                ),
-                suffixIcon: IconButton(
-                  icon: Icon(
-                    isShowPassword ? Icons.visibility_off : Icons.visibility,
-                    color: AppColors.grey,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      isShowPassword = !isShowPassword;
-                    });
-                  },
+              Text("Selamat Datang Kembali",
+              style: SMFontPoppins.header3Medium),
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: 'di ',
+                      style: SMFontPoppins.header3Medium.copyWith(color: AppColors.black),
+                    ),
+                    TextSpan(
+                      text: 'Face Divi',
+                      style: SMFontPoppins.header3Medium.copyWith(color: SMColors.primary),
+                    ),
+                  ],
                 ),
               ),
-              const SpaceHeight(104),
+              Text("Silahkan masuk menggunakan email dan kata sandi anda",
+                  style: SMFontPoppins.actionMedium12.copyWith(color: SMColors.naturalGrey70)),
+              const SpaceHeight(30),
+              SMInputField(
+                controller: emailController,
+                label: 'Alamat Email',
+                prefixWidget: Padding(
+                  padding: const EdgeInsets.all(SMDimens.size8),
+                  child: SmSvgPicture.asset(
+                    value: Assets.icons.email.path,
+                   fit: BoxFit.contain,
+
+                  ),
+                ),
+                isRequired: true,
+              ),
+              const SpaceHeight(20),
+              SMInputField(
+                controller: passwordController,
+                label: 'Kata Sandi',
+                prefixWidget: Padding(
+                  padding: const EdgeInsets.all(SMDimens.size8),
+                  child: SmSvgPicture.asset(
+                    value: Assets.icons.password.path,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                isRequired: true,
+                obscureText: !isShowPassword,
+              ),
+
+              const SpaceHeight(SMDimens.size40),
               BlocListener<LoginBloc, LoginState>(
                 listener: (context, state) {
                   state.maybeWhen(
                     orElse: () {},
                     success: (data) {
                       AuthLocalDatasource().saveAuthData(data);
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: SMToastBar.success(message: "Berhasil Login" ),
+                        backgroundColor: SMColors.white,
+                      ));
                       context.pushReplacement(const MainPage());
                     },
                     error: (message) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(message),
-                          backgroundColor: AppColors.red,
-                        ),
-                      );
+                      // SMToastBar.error(message: message);
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: SMToastBar.error(message: message),
+                        backgroundColor: SMColors.white,
+                      ));
+
                     },
                   );
                 },
@@ -111,22 +122,27 @@ class _LoginPageState extends State<LoginPage> {
                     builder: (context, state) {
                   return state.maybeWhen(
                     orElse: () {
-                      return Button.filled(
-                        onPressed: () {
-                          // context.pushReplacement(const MainPage());
-                          context.read<LoginBloc>().add(
-                                LoginEvent.login(
-                                  emailController.text,
-                                  passwordController.text,
-                                ),
-                              );
-                        },
-                        label: 'Sign In',
+                      return SizedBox(
+                        width: double.infinity,
+                        child: SMButtonFill.primaryMedium(
+                          onPressed: () {
+                            context.read<LoginBloc>().add(
+                              LoginEvent.login(
+                                emailController.text,
+                                passwordController.text,
+                              ),
+                            );
+                          },
+                          text: 'Masuk',
+                        ),
                       );
+
                     },
                     loading: () {
                       return const Center(
-                        child: CircularProgressIndicator(),
+                        child: SMCircularLoading(
+                          isBasicLoading: true,
+                        )
                       );
                     },
                   );

@@ -26,6 +26,9 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Profile'),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -54,79 +57,127 @@ class _ProfilePageState extends State<ProfilePage> {
                                     AssetImage(Assets.icons.image.path),
                               ),
                         SpaceHeight(24),
-                        CustomTextField(
-                          readOnly: true,
-                          label: 'Name',
+                        SMInputField(
+                          label: 'Nama',
                           controller: TextEditingController(text: user.name),
+                          isEnable: false,
                         ),
                         SpaceHeight(16),
-                        CustomTextField(
-                          readOnly: true,
+                        SMInputField(
                           label: 'Email',
                           controller: TextEditingController(text: user.email),
+                          isEnable: false,
                         ),
                         SpaceHeight(16),
-                        CustomTextField(
-                          readOnly: true,
-                          label: 'Phone',
+                        SMInputField(
+                          label: 'No Handphone',
                           controller:
                               TextEditingController(text: user.phone ?? '-'),
-                        ),
-                        SpaceHeight(24),
-                        Button.outlined(
-                          onPressed: () {
-                            context.push(UpdateProfilePage(user: user));
-                          },
-                          label: 'Update Profile',
-                          fontSize: 16.0,
-                          height: 48,
+                          isEnable: false,
                         ),
                         SpaceHeight(16),
+                        SMInputField(
+                          label: 'Peran',
+                          controller: TextEditingController(text: user.role),
+                          isEnable: false,
+                        ),
+                        SpaceHeight(16),
+                        SMInputField(
+                          label: 'Posisi',
+                          controller:
+                              TextEditingController(text: user.position),
+                          isEnable: false,
+                        ),
+                        SpaceHeight(16),
+                        SMInputField(
+                          label: 'Departemen',
+                          controller:
+                              TextEditingController(text: user.department),
+                          isEnable: false,
+                        ),
+                        SpaceHeight(24),
+                        // SMButtonFill.secondaryMedium(
+                        //   onPressed: () {
+                        //     context.push(UpdateProfilePage(user: user));
+                        //   },
+                        //   text: 'Update Profile',
+                        // ),
+                        // SpaceHeight(16),
                       ],
                     );
                   });
                 },
               ),
             ),
-            BlocConsumer<LogoutBloc, LogoutState>(
-              listener: (context, state) {
-                state.maybeMap(
-                  orElse: () {},
-                  success: (_) {
-                    context.pushReplacement(const LoginPage());
-                  },
-                  error: (value) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(value.error),
-                        backgroundColor: AppColors.red,
-                      ),
-                    );
-                  },
-                );
-              },
-              builder: (context, state) {
-                return state.maybeWhen(
-                  orElse: () {
-                    return Button.filled(
-                      height: 48,
-                      fontSize: 16.0,
-                      color: AppColors.red,
-                      onPressed: () {
-                        context
-                            .read<LogoutBloc>()
-                            .add(const LogoutEvent.logout());
-                      },
-                      label: 'Logout',
-                    );
-                  },
-                  loading: () {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  },
-                );
-              },
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: BlocBuilder<GetUserBloc, GetUserState>(
+                    builder: (context, state) {
+                      return state.maybeWhen(
+                        orElse: () => SizedBox.shrink(),
+                        success: (user) {
+                          return SMButtonOutline.primaryMedium(
+                            onPressed: () {
+                              context.push(UpdateProfilePage(user: user));
+                            },
+                            text: 'Ubah Data',
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+                SpaceWidth(SMDimens.size12),
+                Expanded(
+                  child: BlocConsumer<LogoutBloc, LogoutState>(
+                    listener: (context, state) {
+                      state.maybeMap(
+                        orElse: () {},
+                        success: (_) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content:
+                                SMToastBar.success(message: "Berhasil Keluar"),
+                            backgroundColor: SMColors.white,
+                          ));
+                          context.pushReplacement(const LoginPage());
+                        },
+                        error: (value) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(value.error),
+                              backgroundColor: AppColors.red,
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    builder: (context, state) {
+                      return state.maybeWhen(
+                        orElse: () {
+                          return SizedBox(
+                            width: 120,
+                            child: SMButtonFill.primaryMedium(
+                              onPressed: () {
+                                context
+                                    .read<LogoutBloc>()
+                                    .add(const LogoutEvent.logout());
+                              },
+                              text: 'Keluar',
+                            ),
+                          );
+                        },
+                        loading: () {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ],
             )
           ],
         ),

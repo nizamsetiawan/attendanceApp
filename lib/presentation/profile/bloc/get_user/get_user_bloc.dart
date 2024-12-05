@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 import '../../../../data/datasources/user_remote_datasource.dart';
 import '../../../../data/models/response/auth_response_model.dart';
 

@@ -194,7 +194,7 @@ class _FaceDetectorViewState extends State<FaceDetectorView> {
   @override
   Widget build(BuildContext context) {
     return DetectorView(
-      title: 'Face Detector',
+      title: 'Deteksi Wajah',
       customPaint: _customPaint,
       text: _text,
       onImage: _processImage,

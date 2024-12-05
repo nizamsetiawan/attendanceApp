@@ -20,7 +20,7 @@ class _SplashPageState extends State<SplashPage> {
       () => context.pushReplacement(const LoginPage()),
     );
     return Scaffold(
-      backgroundColor: AppColors.primary,
+      backgroundColor: SMColors.primary,
       body: FutureBuilder(
         future: AuthLocalDatasource().isAuth(),
         builder: (context, snapshot) {
@@ -51,17 +51,19 @@ class _SplashPageState extends State<SplashPage> {
               );
             }
           }
-          return Column(
-            children: [
-              const Spacer(),
-              Padding(
-                padding: const EdgeInsets.all(50.0),
-                child: Assets.images.logoWhite.image(),
-              ),
-              const Spacer(),
-              Assets.images.logoCodeWithBahri.image(height: 70),
-              const SpaceHeight(20.0),
-            ],
+          return Center(
+            child: Column(
+              children: [
+                const Spacer(),
+                Padding(
+                  padding: const EdgeInsets.all(50.0),
+                  child: Assets.images.logoWhite.image(),
+                ),
+                const Spacer(),
+                Assets.images.logoCodeWithBahri.image(height: 70),
+                const SpaceHeight(20.0),
+              ],
+            ),
           );
         },
       ),

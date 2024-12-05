@@ -23,7 +23,7 @@ class HistoryAttendance extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        color: isAttendanceIn ? AppColors.primary : AppColors.red,
+        color: isAttendanceIn ? SMColors.primary : SMColors.secondary,
         borderRadius: BorderRadius.circular(16.0),
       ),
       child: Column(

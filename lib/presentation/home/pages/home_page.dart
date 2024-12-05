@@ -98,10 +98,9 @@ class _HomePageState extends State<HomePage> {
         faceEmbedding = authData?.user?.faceEmbedding;
       });
     } catch (e) {
-      // Tangani error di sini jika ada masalah dalam mendapatkan authData
       print('Error fetching auth data: $e');
       setState(() {
-        faceEmbedding = null; // Atur faceEmbedding ke null jika ada kesalahan
+        faceEmbedding = null;
       });
     }
   }
@@ -162,53 +161,15 @@ class _HomePageState extends State<HomePage> {
                             },
                             icon: Icon(Icons.refresh, color: AppColors.white),
                           ),
+                          IconButton(
+                            onPressed: () {},
+                            icon:
+                                Icon(Icons.note_sharp, color: AppColors.white),
+                          ),
                         ],
                       );
                     },
                   );
-                  // return Row(
-                  //   children: [
-                  //     ClipRRect(
-                  //       borderRadius: BorderRadius.circular(50.0),
-                  //       child: Image.network(
-                  //         'https://i.pinimg.com/originals/1b/14/53/1b14536a5f7e70664550df4ccaa5b231.jpg',
-                  //         width: 48.0,
-                  //         height: 48.0,
-                  //         fit: BoxFit.cover,
-                  //       ),
-                  //     ),
-                  //     const SpaceWidth(12.0),
-                  //     Expanded(
-                  //       child: FutureBuilder(
-                  //         future: AuthLocalDatasource().getAuthData(),
-                  //         builder: (context, snapshot) {
-                  //           if (snapshot.connectionState ==
-                  //               ConnectionState.waiting) {
-                  //             return const Text('Loading...');
-                  //           } else {
-                  //             final user = snapshot.data?.user;
-                  //             return Text(
-                  //               'Hello, ${user?.name ?? 'Hello, Chopper Sensei'}',
-                  //               style: const TextStyle(
-                  //                 fontSize: 18.0,
-                  //                 color: AppColors.white,
-                  //               ),
-                  //               maxLines: 2,
-                  //             );
-                  //           }
-                  //         },
-                  //       ),
-                  //     ),
-                  //     IconButton(
-                  //       onPressed: () {
-                  //         context.read<GetCompanyBloc>().add(
-                  //               const GetCompanyEvent.getCompany(),
-                  //             );
-                  //       },
-                  //       icon: Icon(Icons.refresh, color: AppColors.white),
-                  //     ),
-                  //   ],
-                  // );
                 },
               ),
               const SpaceHeight(24.0),
@@ -313,65 +274,35 @@ class _HomePageState extends State<HomePage> {
                                     await Geolocator.getCurrentPosition();
 
                                 if (position.isMocked) {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title: const Text('Peringatan'),
-                                          content: const Text(
-                                              'Anda menggunakan lokasi palsu'),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: const Text('OK'),
-                                            ),
-                                          ],
-                                        );
-                                      });
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: SMToastBar.info(
+                                        message:
+                                            "Anda Menggunakan Lokasi Palsu. Terima kasih!"),
+                                    backgroundColor: SMColors.white,
+                                  ));
                                   return;
                                 }
 
                                 if (distanceKm > radiusPoint) {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title: const Text('Peringatan'),
-                                          content: const Text(
-                                              'Anda diluar jangkauan absen'),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: const Text('OK'),
-                                            ),
-                                          ],
-                                        );
-                                      });
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: SMToastBar.info(
+                                        message:
+                                            "Anda diluar jangkauan absen. Terima kasih!"),
+                                    backgroundColor: SMColors.white,
+                                  ));
                                   return;
                                 }
 
                                 if (isCheckin) {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title: const Text('Peringatan'),
-                                          content:
-                                              const Text('Anda sudah checkin'),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: const Text('OK'),
-                                            ),
-                                          ],
-                                        );
-                                      });
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: SMToastBar.info(
+                                        message:
+                                            "Anda telah tercatat hadir. Terima kasih!"),
+                                    backgroundColor: SMColors.white,
+                                  ));
                                 } else {
                                   if (attendanceType == 'Face') {
                                     context.push(const FaceDetectorCheckinPage(
@@ -438,84 +369,41 @@ class _HomePageState extends State<HomePage> {
                                     await Geolocator.getCurrentPosition();
 
                                 if (position.isMocked) {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title: const Text('Peringatan'),
-                                          content: const Text(
-                                              'Anda menggunakan lokasi palsu'),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: const Text('OK'),
-                                            ),
-                                          ],
-                                        );
-                                      });
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: SMToastBar.info(
+                                        message:
+                                            "Anda Menggunakan Lokasi Palsu, Terima kasih!"),
+                                    backgroundColor: SMColors.white,
+                                  ));
                                   return;
                                 }
-
-                                // print('jarak radius:  $distanceKm');
-
                                 if (distanceKm > radiusPoint) {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title: const Text('Peringatan'),
-                                          content: const Text(
-                                              'Anda diluar jangkauan absen'),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: const Text('OK'),
-                                            ),
-                                          ],
-                                        );
-                                      });
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: SMToastBar.info(
+                                        message:
+                                            "Anda diluar jangkauan absen, Terima kasih!"),
+                                    backgroundColor: SMColors.white,
+                                  ));
                                   return;
                                 }
                                 if (!isCheckIn) {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title: const Text('Peringatan'),
-                                          content: const Text(
-                                              'Anda belum checkin, silahkan checkin terlebih dahulu'),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: const Text('OK'),
-                                            ),
-                                          ],
-                                        );
-                                      });
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: SMToastBar.info(
+                                        message:
+                                            "Anda belum tercatat hadir. Silakan check-in terlebih dahulu"),
+                                    backgroundColor: SMColors.white,
+                                  ));
                                 } else if (isCheckout) {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title: const Text('Peringatan'),
-                                          content:
-                                              const Text('Anda sudah checkout'),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: const Text('OK'),
-                                            ),
-                                          ],
-                                        );
-                                      });
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: SMToastBar.info(
+                                        message:
+                                            "Anda telah tercatat pulang. Terima kasih!"),
+                                    backgroundColor: SMColors.white,
+                                  ));
                                 } else {
                                   if (attendanceType == 'Face') {
                                     context.push(const FaceDetectorCheckinPage(
@@ -594,29 +482,28 @@ class _HomePageState extends State<HomePage> {
                                     await Geolocator.getCurrentPosition();
 
                                 if (position.isMocked) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content:
-                                          Text('Anda menggunakan lokasi palsu'),
-                                      backgroundColor: AppColors.red,
-                                    ),
-                                  );
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: SMToastBar.info(
+                                        message:
+                                            "Anda Menggunakan Lokasi Palsu. Terima kasih!"),
+                                    backgroundColor: SMColors.white,
+                                  ));
                                   return;
                                 }
 
                                 print('jarak radius:  $distanceKm');
 
                                 if (distanceKm > radiusPoint) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content:
-                                          Text('Anda diluar jangkauan absen'),
-                                      backgroundColor: AppColors.red,
-                                    ),
-                                  );
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: SMToastBar.info(
+                                        message:
+                                            "Anda diluar jangkauan absen. Terima kasih!"),
+                                    backgroundColor: SMColors.white,
+                                  ));
                                   return;
                                 }
-
                                 if (!isCheckIn) {
                                   context.push(const FaceDetectorCheckinPage(
                                     isCheckedIn: false,
@@ -624,17 +511,18 @@ class _HomePageState extends State<HomePage> {
                                 } else if (!isCheckout) {
                                   context.push(const AttendanceCheckoutPage());
                                 } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('Anda sudah checkout'),
-                                      backgroundColor: AppColors.red,
-                                    ),
-                                  );
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: SMToastBar.info(
+                                        message:
+                                            "Anda telah tercatat pulang. Terima kasih!"),
+                                    backgroundColor: SMColors.white,
+                                  ));
                                 }
 
                                 // context.push(const SettingPage());
                               },
-                              label: 'Attendance Using Face ID',
+                              label: 'Absen Menggunakan Wajah',
                               icon: Assets.icons.attendance.svg(),
                               color: AppColors.primary,
                             );
@@ -673,24 +561,35 @@ class _HomePageState extends State<HomePage> {
                                   child: Text(
                                     'Aplikasi ingin mengakses Kamera',
                                     style: TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 12.0,
                                     ),
                                   ),
                                 ),
                                 const SpaceHeight(36.0),
-                                Button.filled(
+                                // Button.filled(
+                                //   onPressed: () => context.pop(),
+                                //   label: 'Tolak',
+                                //   color: AppColors.secondary,
+                                // ),
+                                SMButtonOutline.primaryMedium(
+                                  text: 'Tolak',
                                   onPressed: () => context.pop(),
-                                  label: 'Tolak',
-                                  color: AppColors.secondary,
                                 ),
                                 const SpaceHeight(16.0),
-                                Button.filled(
+                                // Button.filled(
+                                //   onPressed: () {
+                                //     context.pop();
+                                //     context.push(const FaceDetectorView());
+                                //   },
+                                //   label: 'Izinkan',
+                                // ),
+                                SMButtonFill.primaryMedium(
+                                  text: 'Izinkan',
                                   onPressed: () {
                                     context.pop();
                                     context.push(const FaceDetectorView());
                                   },
-                                  label: 'Izinkan',
                                 ),
                               ],
                             ),

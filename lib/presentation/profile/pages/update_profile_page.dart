@@ -13,6 +13,7 @@ import '../bloc/update_user/update_user_bloc.dart';
 
 class UpdateProfilePage extends StatefulWidget {
   final User user;
+
   const UpdateProfilePage({
     super.key,
     required this.user,
@@ -28,6 +29,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   TextEditingController? phoneController;
   XFile? imageFile;
   AuthResponseModel? authData;
+
   @override
   void initState() {
     super.initState();
@@ -55,11 +57,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     return Scaffold(
         appBar: AppBar(
           title: const Text(
-            "Update Profile Page",
-            style: TextStyle(
-                color: AppColors.black,
-                fontSize: 20,
-                fontWeight: FontWeight.w600),
+            "Ubah Data Profile",
           ),
           actions: const [],
         ),
@@ -76,23 +74,18 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                           .read<GetUserBloc>()
                           .add(const GetUserEvent.getUser());
 
-                      const snackBar = SnackBar(
-                        content: Text('Success Update User'),
-                        backgroundColor: AppColors.primary,
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        snackBar,
-                      );
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content:
+                            SMToastBar.success(message: "Ubah Data Berhasil"),
+                        backgroundColor: SMColors.white,
+                      ));
                       context.pop(true);
                     },
                     error: (e) {
-                      const snackBar = SnackBar(
-                        content: Text('Failed Update User'),
-                        backgroundColor: Colors.red,
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        snackBar,
-                      );
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: SMToastBar.error(message: "Ubah Data Gagal"),
+                        backgroundColor: SMColors.white,
+                      ));
                     },
                   );
                 },
@@ -115,7 +108,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                               UpdateUserEvent.updateUser(
                                   user, widget.user.id!));
                         },
-                        label: 'Update',
+                        label: 'Simpan',
                       );
                     },
                     loading: () {
@@ -131,23 +124,23 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
           padding: const EdgeInsets.all(16),
           child: ListView(
             children: [
-              CustomTextField(
-                label: 'Name',
+              SMInputField(
+                label: 'Nama',
                 controller: nameController!,
               ),
               SpaceHeight(16),
-              CustomTextField(
+              SMInputField(
                 label: 'Email',
                 controller: emailController!,
               ),
               SpaceHeight(16),
-              CustomTextField(
-                label: 'Phone',
+              SMInputField(
+                label: 'No Handphone',
                 controller: phoneController!,
               ),
               SpaceHeight(16),
               ImagePickerWidget(
-                label: 'Image Profile',
+                label: 'Foto Profil',
                 onChanged: (file) {
                   if (file == null) {
                     return;

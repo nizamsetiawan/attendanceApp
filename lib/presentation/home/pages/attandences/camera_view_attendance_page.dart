@@ -100,7 +100,7 @@ class _CameraViewState extends State<CameraViewAttendancePage> {
               style: const TextStyle(
                 color: AppColors.white,
               )),
-          backgroundColor: Colors.black,
+          backgroundColor: AppColors.primary,
           leading: IconButton(
             icon:
                 const Icon(Icons.arrow_back_ios_outlined, color: Colors.white),
@@ -147,7 +147,7 @@ class _CameraViewState extends State<CameraViewAttendancePage> {
         child: Container(
           padding: const EdgeInsets.all(8.0),
           decoration: BoxDecoration(
-            color: Colors.black54,
+            color: SMColors.primary,
             borderRadius: BorderRadius.circular(10.0),
           ),
           child: const Text(
