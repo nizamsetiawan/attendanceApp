@@ -65,14 +65,14 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (widget.showLabel) ...[
-          Text(
-            widget.label,
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
+          Padding(
+            padding: const EdgeInsets.only(left: 12, bottom: 4),
+            child: Text(
+              widget.label,
+              style: SMFontPoppins.actionMedium14
+                  .copyWith(color: SMColors.naturalGrey80),
             ),
           ),
-          const SizedBox(height: 12.0),
         ],
         TextFormField(
           controller: controller,
@@ -80,20 +80,20 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
           readOnly: true,
           decoration: InputDecoration(
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16.0),
-              borderSide: const BorderSide(color: Colors.grey),
+              borderRadius: BorderRadius.circular(4),
+              borderSide: const BorderSide(color: SMColors.naturalGrey50),
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16.0),
-              borderSide: const BorderSide(color: Colors.grey),
+              borderRadius: BorderRadius.circular(4),
+              borderSide: const BorderSide(color: SMColors.naturalGrey50),
             ),
             prefixIcon: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Assets.icons.calendar.svg(),
             ),
-            hintText: widget.initialDate != null
-                ? selectedDate.toFormattedDate()
-                : widget.label,
+            hintText: 'Pilih tanggal',
+            hintStyle: SMFontPoppins.paragraph1Reguler
+                .copyWith(color: SMColors.naturalGrey50),
           ),
         ),
       ],

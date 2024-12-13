@@ -217,7 +217,7 @@ class _RecognitionResultPageState extends State<AttendanceResultPage> {
                                 child: SizedBox(
                                   width: double.infinity,
                                   child: SMButtonFill.primaryMedium(
-                                    text: "Lanjutkan Checkout",
+                                    text: "Lanjutkan Absen Keluar",
                                     onPressed: () {
                                       context.read<CheckoutAttendanceBloc>().add(
                                             CheckoutAttendanceEvent.checkout(

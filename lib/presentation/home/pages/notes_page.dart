@@ -29,62 +29,70 @@ class _NotesPageState extends State<NotesPage> {
       appBar: AppBar(
         title: Text("Form Catatan"),
       ),
-      body: Column(
-        children: [
-          SMInputField(
-            controller: titleController,
-            label: "Judul Catatan",
-            textHint: "Isi judul catatan",
-          ),
-          const SpaceHeight(26.0),
-          SMInputField(
-            controller: noteController,
-            label: "Catatan",
-            textHint: "Isi Catatan",
-            maxLines: 5,
-          ),
-          const SpaceHeight(56.0),
-          BlocConsumer<AddNotesBloc, AddNotesState>(
-            listener: (context, state) {
-             state.maybeWhen(
-                 orElse: (){},
-               error: (message){
-                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                   content: SMToastBar.error(message: message ),
-                   backgroundColor: SMColors.white,
-                 ));
-               },
-               success: (){
-                   titleController.clear();
-                   noteController.clear();
-                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                     content: SMToastBar.success(message: "Penambahan Catatan Berhasil" ),
-                     backgroundColor: SMColors.white,
-                   ));
-                   context.pushReplacement(const MainPage());
-               }
-             );
-            },
-            builder: (context, state) {
-              return state.maybeWhen(
-                  orElse: () {
-                return SMButtonFill.primaryMedium(
-                  text: "Tambahkan",
-                  onPressed: () {
-                    context.read<AddNotesBloc>().add(
-                        AddNotesEvent.addNotes(title: titleController.text, note: noteController.text)
-                    );
+      body: Padding(
+        padding: const EdgeInsets.all(18.0),
+        child: Center(
+          child: Column(
+            children: [
+              SMInputField(
+                controller: titleController,
+                label: "Judul Catatan",
+                textHint: "Isi judul catatan",
+              ),
+              const SpaceHeight(26.0),
+              SMInputField(
+                controller: noteController,
+                label: "Catatan",
+                textHint: "Isi Catatan",
+                maxLines: 5,
+              ),
+              const SpaceHeight(36.0),
+              BlocConsumer<AddNotesBloc, AddNotesState>(
+                listener: (context, state) {
+                 state.maybeWhen(
+                     orElse: (){},
+                   error: (message){
+                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                       content: SMToastBar.error(message: message ),
+                       backgroundColor: SMColors.white,
+                     ));
+                   },
+                   success: (){
+                       titleController.clear();
+                       noteController.clear();
+                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                         content: SMToastBar.success(message: "Penambahan Catatan Berhasil" ),
+                         backgroundColor: SMColors.white,
+                       ));
+                       context.pushReplacement(const MainPage());
+                   }
+                 );
+                },
+                builder: (context, state) {
+                  return state.maybeWhen(
+                      orElse: () {
+                    return SizedBox(
+                      width: double.infinity,
+                      child: SMButtonFill.primaryMedium(
+                        text: "Tambahkan",
+                        onPressed: () {
+                          context.read<AddNotesBloc>().add(
+                              AddNotesEvent.addNotes(title: titleController.text, note: noteController.text)
+                          );
 
+                        },
+                      ),
+                    );
                   },
-                );
-              },
-                loading: () => const Center(
-                  child: CircularProgressIndicator(),
-                )
-              );
-            },
-          )
-        ],
+                    loading: () => const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  );
+                },
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

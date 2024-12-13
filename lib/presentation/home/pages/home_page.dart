@@ -1,3 +1,4 @@
+import 'package:facedivi/presentation/home/pages/notes_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -260,7 +261,7 @@ class _HomePageState extends State<HomePage> {
                             );
 
                             return MenuButton(
-                              label: 'Datang',
+                              label: 'Masuk',
                               iconPath: Assets.icons.menu.datang.path,
                               onPressed: () async {
                                 final distanceKm =
@@ -356,7 +357,7 @@ class _HomePageState extends State<HomePage> {
                               success: (data) => data.isCheckedin,
                             );
                             return MenuButton(
-                              label: 'Pulang',
+                              label: 'Keluar',
                               iconPath: Assets.icons.menu.pulang.path,
                               onPressed: () async {
                                 final distanceKm =
@@ -437,7 +438,9 @@ class _HomePageState extends State<HomePage> {
                     MenuButton(
                       label: 'Catatan',
                       iconPath: Assets.icons.menu.catatan.path,
-                      onPressed: () {},
+                      onPressed: () {
+                        context.push(const NotesPage());
+                      },
                     ),
                   ],
                 ),
@@ -524,7 +527,7 @@ class _HomePageState extends State<HomePage> {
                               },
                               label: 'Absen Menggunakan Wajah',
                               icon: Assets.icons.attendance.svg(),
-                              color: AppColors.primary,
+                              color: SMColors.stateSuccessBase,
                             );
                           },
                         );
@@ -567,29 +570,23 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 const SpaceHeight(36.0),
-                                // Button.filled(
-                                //   onPressed: () => context.pop(),
-                                //   label: 'Tolak',
-                                //   color: AppColors.secondary,
-                                // ),
-                                SMButtonOutline.primaryMedium(
-                                  text: 'Tolak',
-                                  onPressed: () => context.pop(),
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: SMButtonOutline.primaryMedium(
+                                    text: 'Tolak',
+                                    onPressed: () => context.pop(),
+                                  ),
                                 ),
                                 const SpaceHeight(16.0),
-                                // Button.filled(
-                                //   onPressed: () {
-                                //     context.pop();
-                                //     context.push(const FaceDetectorView());
-                                //   },
-                                //   label: 'Izinkan',
-                                // ),
-                                SMButtonFill.primaryMedium(
-                                  text: 'Izinkan',
-                                  onPressed: () {
-                                    context.pop();
-                                    context.push(const FaceDetectorView());
-                                  },
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: SMButtonFill.primaryMedium(
+                                    text: 'Izinkan',
+                                    onPressed: () {
+                                      context.pop();
+                                      context.push(const FaceDetectorView());
+                                    },
+                                  ),
                                 ),
                               ],
                             ),
@@ -598,7 +595,7 @@ class _HomePageState extends State<HomePage> {
                       },
                       label: 'Dafarkan Wajah',
                       icon: Assets.icons.attendance.svg(),
-                      color: AppColors.red,
+                      color: SMColors.stateErrorBase,
                     ),
             ],
           ),

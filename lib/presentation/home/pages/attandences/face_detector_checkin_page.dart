@@ -148,7 +148,7 @@ class _FaceDetectorViewState extends State<FaceDetectorCheckinPage> {
       builder: (ctx) => AlertDialog(
         title: const Text("Wajah Tidak Terdaftar", textAlign: TextAlign.center),
         content: const Text(
-          "Wajah anda tidak terdaftar, pastikan check in dengan wajah yang sudah terdaftar",
+          "Wajah anda tidak terdaftar, pastikan absen dengan wajah yang sudah terdaftar",
           textAlign: TextAlign.center,
         ),
         actions: [
@@ -170,7 +170,7 @@ class _FaceDetectorViewState extends State<FaceDetectorCheckinPage> {
       builder: (ctx) => AlertDialog(
         title: const Text("Wajah Anda Terdaftar", textAlign: TextAlign.center),
         content: const Text(
-          "Wajah anda sudah terdaftar, silahkan lanjutkan proses check in",
+          "Wajah anda sudah terdaftar, silahkan lanjutkan proses absen masuk",
           textAlign: TextAlign.center,
         ),
         actions: [
@@ -178,7 +178,7 @@ class _FaceDetectorViewState extends State<FaceDetectorCheckinPage> {
             onPressed: () {
               Navigator.of(context).pop();
             },
-            label: 'Proses Check In',
+            label: 'Proses Absen Masuk',
           ),
         ],
       ),
@@ -206,7 +206,7 @@ class _FaceDetectorViewState extends State<FaceDetectorCheckinPage> {
   @override
   Widget build(BuildContext context) {
     return CameraViewAttendancePage(
-      title: 'Check In Camera',
+      title: 'Absen Keluar',
       customPaint: _customPaint,
       onImage: _processImage,
       initialCameraLensDirection: _cameraLensDirection,

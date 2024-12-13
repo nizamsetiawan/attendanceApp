@@ -1,4 +1,4 @@
 class Variables {
   static const String appName = 'faceDivi';
-  static const String baseUrl = 'https://c1a3-114-10-113-225.ngrok-free.app';
+  static const String baseUrl = 'https://27d7-120-188-64-232.ngrok-free.app';
 }
